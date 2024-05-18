@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 RUN git clone https://github.com/NicoJanko/Trading_Prediction.git
 
 # Change to the directory containing the requirements.txt
-WORKDIR /app/Trading_Prediction/TradingDash
+WORKDIR /app/Trading_Prediction/Dashboard
 
 # Install the dependencies
 RUN pip install -r requirements.txt
