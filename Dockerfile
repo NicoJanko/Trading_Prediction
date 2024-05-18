@@ -2,19 +2,25 @@
 FROM python:3.12-slim
 
 # Set the working directory inside the container
-WORKDIR /app/TradingDash
+WORKDIR /app
+
+# install git
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    software-properties-common \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
 # Clone the repository
-RUN git clone https://github.com/NicoJanko/Trading_Prediction.git /app/Trading_Prediction
+RUN git clone https://github.com/NicoJanko/Trading_Prediction.git
 
 # Change to the directory containing the requirements.txt
 WORKDIR /app/Trading_Prediction/TradingDash
 
 # Install the dependencies
 RUN pip install -r requirements.txt
-
-# Set the working directory to where TradingDash.py is located
-WORKDIR /app/Trading_Prediction/TradingDash
 
 # Expose the port the app runs on
 EXPOSE 8080
