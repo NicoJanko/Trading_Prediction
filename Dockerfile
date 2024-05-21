@@ -21,6 +21,7 @@ WORKDIR /app/Trading_Prediction/Dashboard
 
 # Install the dependencies
 RUN pip install -r requirements.txt
+RUN install --index-url https://pypi.anaconda.org/intel/simple --extra-index-url https://pypi.org/simple mkl_fft
 
 # Expose the port the app runs on
 EXPOSE 8080
