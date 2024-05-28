@@ -1,15 +1,11 @@
 from dash import Dash, html, dcc, callback, Output, Input
+from dash_auth
+
+AUTH = {'admin':'p4sSw0#rD!'}
 
 app = Dash(__name__)
 
 app.layout = html.Div(children=[
-    html.H1(children='Bebou!'),
-
-    html.Div(children='''
-        Bebou!
-    '''),
-
-    html.Img(src='/assets/bebou.jpg')
 ])
 
 if __name__ == '__main__':
