@@ -60,7 +60,7 @@ class DataUpdater:
             """)
         self.cursor.execute(query)
         days_data = pd.DataFrame(self.cursor.fetchall(), columns=[desc[0] for desc in self.cursor.description])
-        days_data = days_data.drop(labels=['Date','GEV','SOLV'],axis=1)
+        days_data = days_data.drop(labels=['Date','GEV'],axis=1)
         return days_data
     
 

@@ -21,10 +21,16 @@ WORKDIR /app/Trading_Prediction/Dashboard
 
 # Install the dependencies
 RUN pip install -r requirements.txt
-RUN install --index-url https://pypi.anaconda.org/intel/simple --extra-index-url https://pypi.org/simple mkl_fft
 
+#Launch data_update
+WORKDIR /app/Trading_Prediction/Dashboard/data
+CMD ["python", "data_update.py"]
+
+
+WORKDIR /app/Trading_Prediction/Dashboard
 # Expose the port the app runs on
 EXPOSE 8080
 
 # Define the command to run the app
+
 CMD ["python", "TradingDash.py"]

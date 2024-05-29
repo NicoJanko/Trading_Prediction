@@ -1,11 +1,26 @@
 from dash import Dash, html, dcc, callback, Output, Input
-from dash_auth
+from dash_auth import BasicAuth
 
-AUTH = {'admin':'p4sSw0#rD!'}
+
+VALID_USERNAME_PASSWORD_PAIRS = {
+    'username': 'password',
+    'admin': 'admin'
+}
+
 
 app = Dash(__name__)
+server = app.server
 
-app.layout = html.Div(children=[
+
+auth = BasicAuth(
+    app,
+    VALID_USERNAME_PASSWORD_PAIRS
+)
+
+
+app.layout = html.Div([
+    html.H1('Hello, Dash!'),
+    html.Div('This is a simple Dash dashboard with basic authentication.')
 ])
 
 if __name__ == '__main__':
