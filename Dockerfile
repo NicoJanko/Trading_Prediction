@@ -1,5 +1,5 @@
 # Use the official Python 3.12 image from the Docker Hub
-FROM python:3.12-slim
+FROM python:3.10-slim
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -9,6 +9,8 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
+    libpq-dev \
+    libhdf5-dev \
     software-properties-common \
     git \
     && rm -rf /var/lib/apt/lists/*
