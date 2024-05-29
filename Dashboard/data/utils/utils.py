@@ -1,4 +1,5 @@
 import psycopg2 as psg2
+from psycopg2 import sql
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -12,32 +13,33 @@ class DataUpdater:
         self.cursor = cursor
 
     def check_table(self):
-        query = psg2.sql.SQL("""
+        query = sql.SQL("""
         SELECT EXISTS (
             SELECT 1
             FROM information_schema.tables
             WHERE table_schema = 'public'
-            AND table_name = {}
-                      );
-            """).format(psg2.sql.Identifier(self.tablename))
-        self.cursor.execute(query)
+            AND table_name = %s
+                );
+                """)
+        self.cursor.execute(query, (self.tablename,))
         return self.cursor.fetchone()[0]
     
     def daily_update(self): 
-        query = psg2.sql.SQL("""
+        query = sql.SQL("""
                 SELECT column_name
                 FROM information_schema.columns
                 WHERE table_schema = 'public'
-                AND table_name = {};
-            """).format(psg2.sql.Identifier(self.tablename))
-        self.cursor.execute(query)
+                AND table_name = %s;
+            """)
+        self.cursor.execute(query, (self.tablename,))
     
         symbols = [row[0] for row in self.cursor.fetchall()]
+        symbols.remove('Date')
         today_data = yf.download(
             symbols,
-            start=pd.Timestamp.today().date(),
-            end=pd.Timestamp.today().date()
-                                 )['Adj Close']
+            start='2010-01-01',
+           end=pd.Timestamp.today().date()
+                        )['Adj Close']
         today_data = today_data.fillna(0.0)
         return today_data
 
@@ -51,13 +53,14 @@ class DataUpdater:
     
 
     def prediction_data(self): 
-        query = psg2.sql.SQL("""
+        query = sql.SQL("""
                 SELECT * 
-                FROM ADJ_CLOSE AC
-                WHERE AC.DATE BETWEEN CURRENT_DATE - INTERVAL '120 days' AND CURRENT_DATE;
+                FROM "ADJ_CLOSE" AC
+                WHERE AC."Date"::Date BETWEEN CURRENT_DATE - INTERVAL '120 days' AND CURRENT_DATE;
             """)
         self.cursor.execute(query)
         days_data = pd.DataFrame(self.cursor.fetchall(), columns=[desc[0] for desc in self.cursor.description])
+        days_data = days_data.drop(labels=['Date','GEV','SOLV'],axis=1)
         return days_data
     
 

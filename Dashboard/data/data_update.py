@@ -2,16 +2,16 @@ import pandas as pd
 import psycopg2 as psg2
 from sqlalchemy import create_engine
 import yfinance as yf
-from utils import DataUpdater, Predictor
+from utils.utils import DataUpdater, Predictor
 import pickle as pk
 import keras
 
 def main():
     #connect to database
 
-    con_string = 'postgres://janko80:Jankojanko80@localhost/tradingdash'
+    con_string = 'postgresql://janko80:Jankojanko80@localhost/tradingdash'
     sqla_eng = create_engine(con_string)
-    sqla_conn = con_string.connect()
+    sqla_conn = sqla_eng.connect()
     psg2_conn = psg2.connect(con_string)
     cur = psg2_conn.cursor()
     #check if the table exist
@@ -21,7 +21,7 @@ def main():
     if adj_close_exist:
         #update with today's data
         daily_update = data_updater.daily_update()
-        daily_update.to_sql('ADJ_CLOSE',con=sqla_conn,if_exists='append')
+        daily_update.to_sql('ADJ_CLOSE',con=sqla_conn,if_exists='replace')
         #make pred with today's data
         prediction_data = data_updater.prediction_data()
         model = keras.saving.load_model('prod_model.keras')
