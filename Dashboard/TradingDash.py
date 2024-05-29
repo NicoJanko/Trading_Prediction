@@ -10,7 +10,7 @@ VALID_USERNAME_PASSWORD_PAIRS = {
     'username': 'password',
     'admin': 'admin'
 }
-con_string = 'postgresql://janko80:Jankojanko80@192.168.0.100/tradingdash'
+con_string = 'postgresql://janko80:Jankojanko80@host.docker.internal:5432/tradingdash'
 psg2_conn = psg2.connect(con_string)
 query = 'SELECT * FROM "ADJ_CLOSE" LIMIT 1'
 df = pd.read_sql(query,psg2_conn)
@@ -39,7 +39,7 @@ app.layout = html.Div([
     Input('dropdown','value')
     )
 def update_graph(value):
-    con_string = 'postgresql://janko80:Jankojanko80@localhost/tradingdash'
+    con_string = 'postgresql://janko80:Jankojanko80@host.docker.internal:5432/tradingdash'
     psg2_conn = psg2.connect(con_string)
     query_data = f"""
         SELECT

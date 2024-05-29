@@ -9,7 +9,7 @@ import keras
 def main():
     #connect to database
 
-    con_string = 'postgresql://janko80:Jankojanko80@192.168.0.100/tradingdash'
+    con_string = 'postgresql://janko80:Jankojanko80@host.docker.internal:5432/tradingdash'
     sqla_eng = create_engine(con_string)
     sqla_conn = sqla_eng.connect()
     psg2_conn = psg2.connect(con_string)
