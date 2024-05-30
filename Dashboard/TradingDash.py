@@ -3,8 +3,11 @@ from dash_auth import BasicAuth
 import psycopg2 as psg2
 import plotly.express as px
 import pandas as pd
+import os
 
 
+data_up_path = 'data/data_update.py'
+os.system(f'python {data_up_path}')
 
 VALID_USERNAME_PASSWORD_PAIRS = {
     'username': 'password',
