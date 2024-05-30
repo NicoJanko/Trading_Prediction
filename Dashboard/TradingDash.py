@@ -44,25 +44,28 @@ app.layout = html.Div([
 def update_graph(value):
     con_string = 'postgresql://janko80:Jankojanko80@host.docker.internal:5432/tradingdash'
     psg2_conn = psg2.connect(con_string)
-    query_data = f"""
+    if value:
+        query_data = f"""
         SELECT
             AC."Date",
             AC."{value}"
         FROM "ADJ_CLOSE" AC
         WHERE AC."Date"::Date BETWEEN CURRENT_DATE - INTERVAL '60 days' AND CURRENT_DATE;
 """
-    data = pd.read_sql(query_data, psg2_conn)
+        data = pd.read_sql(query_data, psg2_conn)
     
-    query_pred = f"""
+        query_pred = f"""
                 SELECT
                     PAC."DATE",
                     PAC."{value}"
                 FROM "PRED_ADJ_CLOSE" PAC      
-"""
-    pred_data = pd.read_sql(query_pred, psg2_conn)
-    pred_data = pred_data.rename(columns={'DATE':'Date',f'{value}':f'{value}_pred'})
-    full_data = pd.concat([data, pred_data])
-    return px.line(full_data, x='Date', y=full_data.columns)
+""" 
+        pred_data = pd.read_sql(query_pred, psg2_conn)
+        pred_data = pred_data.rename(columns={'DATE':'Date',f'{value}':f'{value}_pred'})
+        full_data = pd.concat([data, pred_data])
+        return px.line(full_data, x='Date', y=full_data.columns)
+    else:
+        return px.line(title='Choisir une action')
     
     
 
