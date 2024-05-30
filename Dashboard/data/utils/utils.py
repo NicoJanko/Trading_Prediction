@@ -40,7 +40,7 @@ class DataUpdater:
             start='2010-01-01',
            end=pd.Timestamp.today().date()
                         )['Adj Close']
-        today_data = today_data.drop(ladels=['SOLV'],axis=1)
+        today_data = today_data.drop(labels=['SOLV'],axis=1)
         today_data = today_data.fillna(0.0)
         return today_data
 
