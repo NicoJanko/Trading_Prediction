@@ -11,7 +11,7 @@ def create_navbar():
                         html.I(className="fa-brands fa-github"),  # Font Awesome Icon
                         " "  # Text beside icon
                     ],
-                    href="[YOUR GITHUB PROFILE URL]",
+                    href="https://github.com/NicoJanko",
                     target="_blank"
                 )
 
@@ -22,7 +22,7 @@ def create_navbar():
                         html.I(className="fa-brands fa-linkedin"),  # Font Awesome Icon
                         " "  # Text beside icon
                     ],
-                    href="[YOUR LINKEDIN PROFILE URL]",
+                    href="https://www.linkedin.com/in/nicolas-jankovsky-3888979b/",
                     target="_blank"
                 )
 

@@ -9,7 +9,7 @@ register_page(
     __name__,
     name='TradingDash',
     top_nav=True,
-    path='/'
+    path='/tradingdash'
 )
 
 
