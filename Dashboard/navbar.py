@@ -32,7 +32,7 @@ def create_navbar():
                 in_navbar=True,
                 label="Menu",
                 align_end=True,
-                children=[  # Add as many menu items as you need
+                children=[
                     dbc.DropdownMenuItem("Home", href='/'),
                     dbc.DropdownMenuItem(divider=True),
                     dbc.DropdownMenuItem("TradingDash", href='/tradingdash')
@@ -43,7 +43,7 @@ def create_navbar():
         brand_href="/",
         # sticky="top",  # Uncomment if you want the navbar to always appear at the top on scroll.
         color="primary",  # Change this to change color of the navbar e.g. "primary", "secondary" etc.
-        dark=False,  # Change this to change color of text within the navbar (False for dark text)
+        dark=True,  # Change this to change color of text within the navbar (False for dark text)
     )
 
     return navbar

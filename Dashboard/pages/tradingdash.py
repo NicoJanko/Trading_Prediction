@@ -12,8 +12,9 @@ register_page(
     path='/tradingdash'
 )
 
-
-con_string = 'postgresql://janko80:Jankojanko80@host.docker.internal:5432/tradingdash'
+#localhost
+#@host.docker.internal:5432
+con_string = 'postgresql://janko80:Jankojanko80@host.docker.internal:5432host.docker.internal:5432/tradingdash'
 psg2_conn = psg2.connect(con_string)
 query = 'SELECT * FROM "ADJ_CLOSE" LIMIT 1'
 df = pd.read_sql(query,psg2_conn)

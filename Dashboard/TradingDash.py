@@ -12,8 +12,16 @@ VALID_USERNAME_PASSWORD_PAIRS = {
     'username': 'password',
     'admin': 'admin'
 }
+FA621 = "https://use.fontawesome.com/releases/v6.2.1/css/all.css"
 
-app = Dash(__name__,use_pages=True)
+
+app = Dash(__name__,
+           suppress_callback_exceptions=True,
+           external_stylesheets=[
+            dbc.themes.FLATLY,  # Dash Themes CSS
+            FA621  # Font Awesome Icons CSS
+    ],
+           use_pages=True)
 server = app.server
 NAVBAR = create_navbar()
 
@@ -23,19 +31,13 @@ auth = BasicAuth(
 )
 
 
-app.layout = dcc.Loading(  # <- Wrap App with Loading Component
-    id='loading_page_content',
-    children=[
-        html.Div(
+app.layout =html.Div(
             [
                 NAVBAR,
                 page_container
             ]
         )
-    ],
-    color='primary',  # <- Color of the loading spinner
-    fullscreen=True  # <- Loading Spinner should take up full screen
-)
+   
     
     
 
