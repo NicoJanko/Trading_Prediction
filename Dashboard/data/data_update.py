@@ -24,7 +24,7 @@ def main():
         daily_update.to_sql('ADJ_CLOSE',con=sqla_conn,if_exists='replace')
         #make pred with today's data
         prediction_data = data_updater.prediction_data()
-        prediction_data = prediction_data.drop(labels=['SOLV'],axis=1)
+        #prediction_data = prediction_data.drop(labels=['SOLV'],axis=1)
         model = keras.saving.load_model('data/prod_model.keras')
         with open('data/prod_label_encoder.pkl','rb') as file:
             label_encoder = pk.load(file)
