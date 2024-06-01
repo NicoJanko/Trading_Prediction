@@ -16,7 +16,7 @@ FA621 = "https://use.fontawesome.com/releases/v6.2.1/css/all.css"
 
 
 app = Dash(__name__,
-           suppress_callback_exceptions=True,
+           #suppress_callback_exceptions=True,
            external_stylesheets=[
             dbc.themes.FLATLY,  # Dash Themes CSS
             FA621  # Font Awesome Icons CSS
