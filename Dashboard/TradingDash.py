@@ -5,8 +5,8 @@ import os
 from navbar import create_navbar
 
 
-data_up_path = 'data/data_update.py'
-os.system(f'python {data_up_path}')
+#data_up_path = 'data/data_update.py'
+#os.system(f'python {data_up_path}')
 
 VALID_USERNAME_PASSWORD_PAIRS = {
     'username': 'password',
