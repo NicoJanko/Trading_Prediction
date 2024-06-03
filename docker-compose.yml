@@ -1,0 +1,20 @@
+version: '3'
+services:
+  tradingdash:
+    build: .
+    depends_on:
+      - db
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: janko80
+      POSTGRES_PASSWORD: Jankojanko80
+      POSTGRES_DB: tradingdash
+    ports:
+      - "5432:5432"
