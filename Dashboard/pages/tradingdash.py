@@ -26,9 +26,14 @@ psg2_conn.close()
 
 def layout():
     layout = html.Div([
-    html.H1('Trading Dash', style={'textAlign':'center'}),
-    dcc.Dropdown(stock_name, id='dropdown'),
-    dcc.Graph(id='graph')
+    html.H1('Trading Dash',
+            style={'textAlign':'center'}),
+    dcc.Dropdown(stock_name,
+                 id='dropdown',
+                 style = {'width':'45%'}),
+    dcc.Graph(id='graph',
+              style={'height': '80vh'}
+              )
 ])
     return layout
 
@@ -58,7 +63,9 @@ def update_graph(value):
         pred_data = pd.read_sql(query_pred, psg2_conn)
         pred_data = pred_data.rename(columns={'DATE':'Date',f'{value}':f'{value}_pred'})
         full_data = pd.concat([data, pred_data])
-        return px.line(full_data, x='Date', y=full_data.columns)
+        fig = px.line(full_data, x='Date', y=full_data.columns)
+        fig.update_layout(margin={'t': 20, 'b': 20, 'l': 20, 'r': 20})
+        return fig
     else:
         return px.line(title='Choisir une action')
     
